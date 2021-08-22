@@ -1,94 +1,91 @@
 /*
     Creator: CALVIN
-    Title: Just A Regular Game
+    Title: ???
     Genre: Action
     Theme: Top View Shooting Game
-    Ver: 0.1
+    Ver: 0.2.0
 */
 
 #include "game.hpp"
 
+using namespace System;
+
+void main_menu();
+void instructions1();
+void high_score(); //STILL IN PROGRESS
+
 int main()
+{
+    main_menu();
+}
+
+void main_menu()
 {
     system("cls");
 
-    bool game = true; // True = game is currently running, false = game stops
-    int movementKey = 1; // Number of movement sequences = 4
+    gotoxy(30, 10); std::cout << "TEST TITLE";
+    gotoxy(30, 11); std::cout << "1. Play";
+    gotoxy(30, 12); std::cout << "2. How to play";
+    gotoxy(30, 13); std::cout << "3. High Score";
+    gotoxy(30, 14); std::cout << "4. Exit";
 
-    drawBoard();
-    genEnemy();
-    setcursor(0, 0);
-    drawPlayer();
-    while(game)
+    char key = getch();
+    switch(key)
     {
-        Sleep(100);
-        eraseEnemy();
-        if(kbhit())
-        {
-            int key = getch();
-            erasePlayer();
+        case '1':
+            play();
+            main_menu();
+        break;
 
-            switch(key)
-            {
-                // Player movements keys
-                case 'w':
-                    y -= 1;
-                break;
+        case '2':
+            instructions1();
+        break;
 
-                case 's':
-                    y += 1;
-                break;
+        // STILL IN PROGRESS
+        // case '3':
+            // high_score();
+        // break;
 
-                case 'a':
-                    x -= 1;
-                break;
+        case '4':
+            system("cls");
+            gotoxy(30, 12);std::cout << "Thank you for playing";
+        break;
 
-                case 'd':
-                    x += 1;
-                break;
-
-                // Firing keys
-                case 'i':
-                    drawBullet('u');
-                break;
-
-                case 'k':
-                    drawBullet('d');
-                break;
-
-                case 'j':
-                    drawBullet('l');
-                break;
-
-                case 'l':
-                    drawBullet('r');
-                break;
-
-                // For easy ending the game
-                case 'x':
-                    game = false;
-                break;
-            }
-
-            drawPlayer();
-        }
-
-        drawEnemy(movementKey);
-
-        if(collisionPlayer()) // Checks the collision between player and enemy
-        {
-            game = false;
-        }
-
-        if(checkEnemy()) // Checks how many enemies are dead
-        {
-            game = false;
-        }
-
-        gotoxy(30, 30); std::cout << x << ", " << y;
+        default:
+            main_menu();
+        break;
     }
+}
+
+void instructions1()
+{
     system("cls");
-    gotoxy(0, 0);
-    std::cout << "Game Over" << std::endl;
-    system("pause");
+    gotoxy(55, 11); std::cout << "HOW TO PLAY";
+    gotoxy(30, 12); std::cout << "Movement Keys";
+    gotoxy(20, 13); std::cout << "w - move up       a - move left";
+    gotoxy(20, 14); std::cout << "s - move down     d - move right";
+    gotoxy(80, 12); std::cout << "Firing Keys";
+    gotoxy(70, 13); std::cout << "i - fire up       j - fire left";
+    gotoxy(70, 14); std::cout << "k - fire down     l - fire right";
+    // gotoxy(90, 16); std::cout << "> Next Page";
+
+    char key = getch();
+    switch(key)
+    {
+        case 'b':
+            main_menu();
+        break;
+
+        // case '>':;
+        // break;
+
+        default:
+            instructions1();
+        break;
+    }
+}
+
+void high_score()
+{
+
 }
